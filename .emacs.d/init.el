@@ -82,8 +82,12 @@
 
 
 ;; Evil
+(require 'evil-leader)
+(setq evil-leader/in-all-states 1)
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+
 (require 'evil)
-(evil-mode 1)
 
 ;; Coursor colors
 (setq evil-emacs-state-cursor '("green" box))
