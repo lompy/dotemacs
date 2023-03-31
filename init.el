@@ -5,7 +5,6 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (setq disabled-command-function nil)
 (fset 'yes-or-no-p 'y-or-n-p)
-(if (eq system-type 'darwin) (set-face-attribute 'default nil :height 150))
 
 ;; Packages
 (package-initialize)
@@ -156,7 +155,8 @@
   :ensure nil
   :custom
   (ruby-insert-encoding-magic-comment nil "Not needed in Ruby 2")
-  :ensure-system-package (solargraph . "gem install --user-install solargraph"))
+  ;;:ensure-system-package (solargraph . "gem install --user-install solargraph")
+  )
 
 (use-package kotlin-mode)
 
@@ -193,6 +193,9 @@
 (use-package company-go
   :after (go-mode ruby-mode company)
   :config (add-to-list 'company-backends 'company-go))
+
+;; Fix face size
+(if (eq system-type 'darwin) (set-face-attribute 'default nil :height 150))
 
 ;; Old config for insparation
 ;; ;; (require 'smartparens)
