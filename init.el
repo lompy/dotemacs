@@ -194,7 +194,9 @@
 (use-package lsp-ui)
 (use-package lsp-treemacs)
 
-(use-package yasnippet)
+(use-package yasnippet
+  :custom
+  (yas-snippet-dirs (list (expand-file-name "snippets" user-emacs-directory))))
 
 (use-package company
   :defer 2
