@@ -49,7 +49,9 @@
 
 (use-package undo-tree
   :ensure t
-  :defer t)
+  :defer t
+  :custom
+  (undo-tree-auto-save-history nil))
 (use-package use-package-chords
   :ensure t
   :config (key-chord-mode t))
@@ -139,6 +141,10 @@
   (projectile-mode +1)
   :bind (:map projectile-mode-map
 	      ("C-c p" . projectile-command-map)))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 (use-package go-mode
   :mode "\\.go\\'"
