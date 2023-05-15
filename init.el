@@ -1,3 +1,7 @@
+;;; init.el --- My Emacs config.
+;;; Commentary:
+
+;;; Code:
 (server-start)
 
 (setq custom-file  (expand-file-name "custom.el" user-emacs-directory))
@@ -22,7 +26,7 @@
   :ensure t
   :if (memq window-system '(mac ns x))
   :config
-  (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
+  (setq exec-path-from-shell-variables '("PATH" "GOPATH" "SOLARGRAPH_CACHE"))
   (exec-path-from-shell-initialize))
 
 (use-package auto-package-update
@@ -107,19 +111,24 @@
   :config
   (org-roam-db-autosync-enable))
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 (use-package geiser)
 (use-package geiser-racket)
 
 ;; Custom functions
 (defun compile-with-key (key command)
-  "Sets global KEY to run COMMAND in projectile root dir in comint mode."
+  "Set global KEY to run COMMAND in projectile root dir in comint mode."
   (global-set-key (kbd key) ((lambda () (projectile-compile-project command)))))
 
-(defun what-face (pos)
+(defun what-face (position)
+  "Return the face at POSITION."
   (interactive "d")
   (let ((face (or (get-char-property (point) 'read-face-name)
                   (get-char-property (point) 'face))))
-    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+    (if face (message "Face: %s" face) (message "No face at %d" position))))
 
 ;; Bindings
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
@@ -185,6 +194,8 @@
 (use-package lsp-ui)
 (use-package lsp-treemacs)
 
+(use-package yasnippet)
+
 (use-package company
   :defer 2
   :diminish
@@ -197,7 +208,7 @@
   (global-company-mode t))
 
 (use-package company-go
-  :after (go-mode ruby-mode company)
+  :after (go-mode company)
   :config (add-to-list 'company-backends 'company-go))
 
 ;; Fix face size
@@ -642,4 +653,6 @@
 ;; ;; (nconc org-babel-default-header-args:java
 ;; ;;        '((:dir . nil)
 ;; ;;          (:results . value)))
-;; ;;; init.el ends here
+
+(provide 'init)
+;;; init.el ends here
