@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: func Test...() { ... }
+# name: test func
 # --
 func Test${1:Name}(${2:t *testing.T}) {
-    `%`$0
+    $0
 }

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: ... := ...
+# name: assign new var
 # key: :=
 # uuid: :=
 # --
-${1:x} := ${2:`%`}
+${1:x} := $0

@@ -40,7 +40,9 @@
 
 (use-package no-littering)
 (use-package saveplace)
-(use-package ag)
+(use-package ag
+  :custom
+  (ag-ignore-list '("tags" "*unit*.xml")))
 
 (use-package smex
   :ensure t

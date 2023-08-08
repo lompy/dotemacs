@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: type ... interface { ... }
+# name: interface
 # --
 type $1 interface {
-    `%`$0
+    $0
 }

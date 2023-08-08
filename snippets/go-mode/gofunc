@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: go func (short)
+# name: go func
 # --
 go func (${1:args}) {
     $0
