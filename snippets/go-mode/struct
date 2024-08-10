@@ -2,5 +2,5 @@
 # name: struct
 # --
 type $1 struct {
-    `%`$0
+    $0
 }

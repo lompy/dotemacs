@@ -20,10 +20,7 @@
  '(inhibit-startup-screen t)
  '(initial-frame-alist '((fullscreen . maximized)))
  '(initial-scratch-message
-   ";; This buffer is for text that is not saved.
-;; To create a file, visit it with \\[find-file] and enter text in its buffer.
-
-")
+   ";; This buffer is for text that is not saved.\12;; To create a file, visit it with \\[find-file] and enter text in its buffer.\12\12")
  '(js-indent-level 2)
  '(menu-bar-mode nil)
  '(org-agenda-files
@@ -34,11 +31,12 @@
      ("org" . "http://orgmode.org/elpa/")
      ("stable" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(yasnippet flycheck company-go company exec-path-from-shell lsp-treemacs lsp-ui lsp-mode kotlin-mode origami zen-mode evil-surround undo-tree geiser-racket geiser emacs-goodies-el org-roam evil-commentary go-mode cider ob-clojurescript ob-clojure ob-go smex projectile use-package-chords evil ag no-littering auto-package-update use-package))
- '(ruby-insert-encoding-magic-comment nil)
+   '(evil-string-inflection wgrep-ag wgrep ido-completing-read+ plantuml-mode yasnippet flycheck company-go company exec-path-from-shell lsp-treemacs lsp-ui lsp-mode kotlin-mode origami zen-mode evil-surround undo-tree geiser-racket geiser emacs-goodies-el org-roam evil-commentary go-mode cider ob-clojurescript ob-clojure ob-go smex projectile use-package-chords evil ag no-littering auto-package-update use-package))
+ '(require-final-newline t)
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
+ '(use-short-answers t)
  '(whitespace-line-column 100))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

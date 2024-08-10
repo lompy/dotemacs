@@ -8,7 +8,6 @@
 (load-file custom-file)
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (setq disabled-command-function nil)
-(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Packages
 (package-initialize)
@@ -31,13 +30,15 @@
 
 (use-package auto-package-update
   :custom
-  (auto-package-update-interval 7)
+  (auto-package-update-interval 14)
   (auto-package-update-prompt-before-update t)
   (auto-package-update-hide-results t)
   :config
   (auto-package-update-maybe)
   (auto-package-update-at-time "09:00"))
 
+(use-package ido-completing-read+
+  :config (ido-ubiquitous-mode t))
 (use-package no-littering)
 (use-package saveplace)
 (use-package ag
@@ -48,6 +49,8 @@
   :ensure t
   :bind (("M-x" . smex))
   :config (smex-initialize))
+
+(use-package string-inflection :ensure t)
 
 (use-package ob-go)
 (require 'ob-clojure)
@@ -78,7 +81,7 @@
     ("\C-e" . end-of-line)
     ("<leader>h" . whitespace-mode)
     ("<leader>c" . whitespace-cleanup)
-    ("<leader>l" . linum-mode))
+    ("<leader>l" . display-line-numbers-mode))
   (:map evil-insert-state-map
     ("\C-a" . move-beginning-of-line)
     ("\C-e" . end-of-line))
@@ -117,8 +120,13 @@
   :ensure t
   :init (global-flycheck-mode))
 
+(use-package plantuml-mode)
+
 (use-package geiser)
 (use-package geiser-racket)
+(use-package wgrep-ag
+  :ensure t
+  :defer t)
 
 ;; Custom functions
 (defun compile-with-key (key command)
@@ -131,6 +139,17 @@
   (let ((face (or (get-char-property (point) 'read-face-name)
                   (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" position))))
+
+(defun commit-issue ()
+  "Find commit issue number in current buffer and insert it at point."
+  (interactive)
+  (save-excursion (re-search-forward "On branch [a-z]+/\\([A-Z]+-[0-9]+\\)"))
+  (insert "[" (match-string 1) "] "))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 
 ;; Bindings
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
@@ -180,7 +199,7 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-mode lsp-deferred)
-  :hook ((ruby-mode go-mode) . lsp-deferred)
+  :hook ((go-mode) . lsp-deferred)
   :custom
   (lsp-prefer-flymake t)
   (lsp-enable-indentation nil)
@@ -198,7 +217,9 @@
 
 (use-package yasnippet
   :custom
-  (yas-snippet-dirs (list (expand-file-name "snippets" user-emacs-directory))))
+  (yas-snippet-dirs (list (expand-file-name "snippets" user-emacs-directory)))
+  :config
+  (yas-global-mode 1))
 
 (use-package company
   :defer 2
@@ -210,10 +231,6 @@
   (company-show-numbers t)
   (company-tooltip-align-annotations 't)
   (global-company-mode t))
-
-(use-package company-go
-  :after (go-mode company)
-  :config (add-to-list 'company-backends 'company-go))
 
 ;; Fix face size
 (if (eq system-type 'darwin) (set-face-attribute 'default nil :height 150))
